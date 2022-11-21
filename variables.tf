@@ -85,7 +85,8 @@ variable "private_dns_zone_resource_group_name" {
 
 variable "private_dns_zone_names" {
   description = "The name of Private DNS Zones needs to registered to"
-  default     = ["privatelink.azurewebsites.net","privatelink.database.windows.net","privatelink.documents.azure.com"]
+  type = map(string)
+  default     = {}
 }
 
 variable "use_remote_gateways" {

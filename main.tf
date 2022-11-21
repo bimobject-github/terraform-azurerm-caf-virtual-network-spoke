@@ -7,6 +7,12 @@ locals {
   netwatcher_rg_name     = element(coalescelist(data.azurerm_resource_group.netwatch.*.name, azurerm_resource_group.nwatcher.*.name, [""]), 0)
   netwatcher_rg_location = element(coalescelist(data.azurerm_resource_group.netwatch.*.location, azurerm_resource_group.nwatcher.*.location, [""]), 0)
   if_ddos_enabled        = var.create_ddos_plan ? [{}] : []
+  default_private_dns_zone_names = {
+    privatelink_azurewebsites_net = "privatelink.azurewebsites.net",
+    privatelink_database_windows_net = "privatelink.database.windows.net",
+    privatelink_documents_azure_com = "privatelink.documents.azure.com"
+  }
+  private_dns_zone_names = var.private_dns_zone_names != {} ? default_private_dns_zone_names : {}
 }
 
 
@@ -139,11 +145,11 @@ resource "azurerm_subnet_route_table_association" "rtassoc" {
 #---------------------------------------------
 resource "azurerm_private_dns_zone_virtual_network_link" "dzvlink" {
   provider              = azurerm.hub
-  count                 = length(var.private_dns_zone_names) 
+  foreach               = var.private_dns_zone_names 
   name                  = lower("vnl-${azurerm_virtual_network.vnet.name}")
   resource_group_name   = var.private_dns_zone_resource_group_name
   virtual_network_id    = azurerm_virtual_network.vnet.id
-  private_dns_zone_name = var.private_dns_zone_names[count.index]
+  private_dns_zone_name = each.value
   registration_enabled  = false
   tags                  = var.tags
 }
