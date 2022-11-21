@@ -78,15 +78,14 @@ variable "private_dns_zone_registration" {
 }
 
 variable "private_dns_zone_resource_group_name" {
-  description = "The name of Private DNS Zones resourcegroup name"
+  description = "The name of Private DNS Zones resourcegroup name."
   type        = string
   default     = null
 }
 
-variable "private_dns_zone_names" {
-  description = "The name of Private DNS Zones needs to registered to"
-  type = map(string)
-  default     = {}
+variable "private_dns_zone_enabled" {
+  description = "If it is true vnet will be linked to all private_dns_zones."
+  default     = true
 }
 
 variable "use_remote_gateways" {

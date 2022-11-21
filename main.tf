@@ -12,7 +12,7 @@ locals {
     privatelink_database_windows_net = "privatelink.database.windows.net",
     privatelink_documents_azure_com = "privatelink.documents.azure.com"
   }
-  private_dns_zone_names = var.private_dns_zone_names != {} ? default_private_dns_zone_names : {}
+  private_dns_zone_names = var.private_dns_zone_enabled ? default_private_dns_zone_names : {}
 }
 
 
