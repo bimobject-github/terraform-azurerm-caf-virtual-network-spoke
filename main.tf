@@ -143,7 +143,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "dzvlink" {
   name                  = lower("vnl-${azurerm_virtual_network.vnet.name}")
   resource_group_name   = var.private_dns_zone_resource_group_name
   virtual_network_id    = azurerm_virtual_network.vnet.id
-  private_dns_zone_name = var.private_dns_zone_name[count.index]
+  private_dns_zone_name = var.private_dns_zone_names[count.index]
   registration_enabled  = false
   tags                  = var.tags
 }
