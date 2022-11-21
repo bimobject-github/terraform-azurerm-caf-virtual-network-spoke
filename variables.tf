@@ -92,10 +92,6 @@ variable "private_dns_zone_names" {
     privatelink_documents_azure_com = "privatelink.documents.azure.com"
   }
 }
-variable "private_dns_zone_enabled" {
-  description = "If it is true vnet will be linked to all private_dns_zones."
-  default     = true
-}
 
 variable "use_remote_gateways" {
   description = "Controls if remote gateways can be used on the local virtual network."

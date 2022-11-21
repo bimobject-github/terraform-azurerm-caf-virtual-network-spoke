@@ -64,8 +64,7 @@ module "vnet-spoke" {
     { name = var.route_dev_vnet_name, address_prefix = var.route_dev_vnet_address_prefix, next_hop_type = var.route_dev_vnet_next_hop_type}
   ]
 
-  use_remote_gateways=true
-
+  
   create_nat_gateway = true
   nat_gateway_name="ngw-campaign-test"
   public_ip_name="pip-ngw-campaign-test"
@@ -199,8 +198,8 @@ This module handle the provision of Network Watcher resource by defining `create
 
 To peer spoke networks to the hub networks requires the service principal that performs the peering has `Network Operator` custom role on hub network. Linking the Spoke to Hub DNS zones, the service principal also needs the `Private Endpoint Operator` custom role on hub network. If Log Analytics workspace is created in hub or another subscription then, the service principal must have `Log Analytics Contributor` role on workspace or a custom role to connect resources to workspace.
 
-## Private links to Private DNS zones 
-By default privite dns zone private link assigment is enabled that means the vnet will be linked all the private dns zones in hub network
+## Private DNS zone registration 
+By default privite dns zone registration is enabled. Therefore it register all vnets to the supported private dns zonesdns zones in hub network
 In this case the 'private_dns_zone_resource_group_name` parameter is mandatory
 
 ```hcl  
@@ -214,7 +213,7 @@ Module "vnet-spoke"{
 }
 ```
 
-To turn this feature off `private_dns_zone_enabled` parameter have to set to false
+To turn this feature off `private_dns_zone_registration` parameter have to set to false
 For custom private dns zone names the `private_dns_zone_names` needs to be provided
 
 ```hcl  

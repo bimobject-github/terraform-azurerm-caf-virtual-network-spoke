@@ -139,7 +139,7 @@ resource "azurerm_subnet_route_table_association" "rtassoc" {
 #---------------------------------------------
 resource "azurerm_private_dns_zone_virtual_network_link" "dzvlink" {
   provider              = azurerm.hub
-  for_each               = var.private_dns_zone_enabled ? var.private_dns_zone_names : {}
+  for_each               = var.private_dns_zone_registration ? var.private_dns_zone_names : {}
   name                  = lower("vnl-${azurerm_virtual_network.vnet.name}")
   resource_group_name   = var.private_dns_zone_resource_group_name
   virtual_network_id    = azurerm_virtual_network.vnet.id
