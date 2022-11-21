@@ -199,8 +199,33 @@ This module handle the provision of Network Watcher resource by defining `create
 
 To peer spoke networks to the hub networks requires the service principal that performs the peering has `Network Operator` custom role on hub network. Linking the Spoke to Hub DNS zones, the service principal also needs the `Private Endpoint Operator` custom role on hub network. If Log Analytics workspace is created in hub or another subscription then, the service principal must have `Log Analytics Contributor` role on workspace or a custom role to connect resources to workspace.
 
+## Private links to Private DNS zones 
+By default privite dns zone private link assigment is enabled that means the vnet will be linked all the private dns zones in hub network
+In this case the 'private_dns_zone_resource_group_name` parameter is mandatory
+
+```hcl  
 
 
+Module "vnet-spoke"{
+ 
+ .....
+  private_dns_zone_resource_group_name = "rg-infra-test-privatedns-zones"
+ ....
+}
+```
+
+To turn this feature off `private_dns_zone_enabled` parameter have to set to false
+For custom private dns zone names the `private_dns_zone_names` needs to be provided
+
+```hcl  
+  default = {
+    privatelink_azurewebsites_net = "privatelink.azurewebsites.net",
+    privatelink_database_windows_net = "privatelink.database.windows.net",
+    privatelink_documents_azure_com = "privatelink.documents.azure.com"
+  }
+```
+`private_dns_zone_names`  parameter defined as a map because in this it will be added to the state by name not by index if we use only a simple list. 
+The modification of the values are safe.
 ## Requirements
 
 Name | Version
