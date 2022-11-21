@@ -83,6 +83,15 @@ variable "private_dns_zone_resource_group_name" {
   default     = null
 }
 
+variable "private_dns_zone_names" { 
+  description = "The name of Private DNS Zones."
+  type        = map(string)
+  default = {
+    privatelink_azurewebsites_net = "privatelink.azurewebsites.net",
+    privatelink_database_windows_net = "privatelink.database.windows.net",
+    privatelink_documents_azure_com = "privatelink.documents.azure.com"
+  }
+}
 variable "private_dns_zone_enabled" {
   description = "If it is true vnet will be linked to all private_dns_zones."
   default     = true

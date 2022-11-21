@@ -6,14 +6,8 @@ locals {
   location               = element(coalescelist(data.azurerm_resource_group.rgrp.*.location, azurerm_resource_group.rg.*.location, [""]), 0)
   netwatcher_rg_name     = element(coalescelist(data.azurerm_resource_group.netwatch.*.name, azurerm_resource_group.nwatcher.*.name, [""]), 0)
   netwatcher_rg_location = element(coalescelist(data.azurerm_resource_group.netwatch.*.location, azurerm_resource_group.nwatcher.*.location, [""]), 0)
-  if_ddos_enabled        = var.create_ddos_plan ? [{}] : []
-  default_private_dns_zone_names = {
-    privatelink_azurewebsites_net = "privatelink.azurewebsites.net",
-    privatelink_database_windows_net = "privatelink.database.windows.net",
-    privatelink_documents_azure_com = "privatelink.documents.azure.com"
+  if_ddos_enabled        = var.create_ddos_plan ? [{}] : [] 
   }
- 
-}
 
 
 #---------------------------------------------------------
